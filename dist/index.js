@@ -1,31 +1,33 @@
 "use strict";
-// ! Type Assertion / Type Casting
-// In TypeScript, type assertion is a way to tell the compiler to treat a value as a different type. This is useful when you know more about the type of a value than TypeScript does. Type assertion is similar to type casting in other languages, but it does not perform any special checking or restructuring of data. It has no runtime impact and is only used by the compiler.
-// Type assertion is done using the `as` keyword or the angle-bracket syntax. The `as` keyword is preferred in JSX files, while the angle-bracket syntax is not allowed in JSX files. Here are some examples of type assertion in TypeScript:
-const add = (a, b) => a + b; // function that adds two numbers and returns a value of type `any`
-const result = add(2, 3); // result is inferred as number
-// Type assertion is used to tell the compiler that we know the type of `result` is `number` even though it is inferred as `any`.
-const resultAsString = result; // type assertion using `as` keyword
-const resultAsString2 = result; // type assertion using angle-bracket syntax
-// Another example of type assertion is when we have a value that can be of multiple types, such as a union type. In this case, we can use type assertion to narrow down the type of the value. For example:
-const value = 'Hello'; // value can be either string or number
-const stringValue = value; // type assertion to treat value as string
-const numberValue = value; // type assertion to treat value as number
-const converKGtoGrams = (weight) => {
-    let value;
-    // Check if the weight is a string
-    if (typeof weight === 'string') {
-        value = parseFloat(weight);
-        return `the converted value is: ${value * 1000}`;
-    }
-    else {
-        return weight * 1000;
-    }
+// ? types vs interfaces
+// By default, you should use interfaces where the properties of an object can be changed and you need specific features of interface like `extends`. Otherwise, use types.
+const user1 = {
+    name: 'John Doe',
+    age: 30,
+    email: 'lEY6n@example.com',
+    id: 1,
 };
-const weight1 = converKGtoGrams(2); // weight1 is inferred as number | string and asserted as number
-const weight2 = converKGtoGrams('2'); // weight2 is inferred as number | string and asserted as string
-const weight3 = converKGtoGrams('2.5'); // weight3 is inferred as number | string and asserted as string
-console.log(weight1); // 2000
-console.log(weight2); // 2000
-console.log(weight3); // 2500
-// So from another view, type assertion can be called as type narrowing, because it narrows down the type of a value to a more specific type.
+console.log('🚀 ~ user1 (created with interface):', user1);
+const admin1 = {
+    name: 'Jane Doe',
+    age: 25,
+    email: '3BhZ3@example.com',
+    id: 2,
+    role: 'admin',
+};
+console.log('🚀 ~ admin1 (created with interface):', admin1);
+const user2 = {
+    name: 'Jane',
+    age: 18,
+    email: 'you@domain.com',
+    id: 3,
+};
+console.log('🚀 ~ user2 (created with type):', user2);
+const admin2 = {
+    name: 'jane',
+    age: 20,
+    email: 'a@l.com',
+    id: 2,
+    role: 'admin',
+};
+console.log('🚀 ~ admin2 (created with type):', admin2);
