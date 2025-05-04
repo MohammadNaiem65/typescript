@@ -1,56 +1,40 @@
 {
-  // Normal  Class
-  class AnimalN {
-    name: string;
-    species: string;
-    sound: string;
-
-    constructor(name: string, species: string, sound: string) {
-      this.name = name;
-      this.species = species;
-      this.sound = sound;
-    }
-
-    makeSound() {
-      console.log(`${this.name} is saying ${this.sound}`);
-    }
+  class Human {
+    constructor(public leg: number, public hand: number) {}
   }
 
-  const catN = new AnimalN("Billu", "cat", "meew");
-  //   console.log("🚀 ~ cat:", catN);
-
-  //   Class using Parameter Properties
-  class AnimalP {
+  //   Inheriting from Human
+  class Male extends Human {
     constructor(
-      public name: string,
-      readonly gender: "male" | "female",
-      private nickname: string,
-      protected id: number
+      leg: number,
+      hand: number,
+      public strong: boolean,
+      public isEmployed: boolean
     ) {
-      // no need to initialize the properties
+      super(leg, hand);
     }
 
-    getId(): number {
-      console.log(`${this.name} has id: ${this.id}`);
-      return this.id;
-    }
-
-    getNickname(): string {
-      console.log(`${this.name}'s nickname is: ${this.nickname}`);
-      return this.nickname;
+    doJob(workingHour: number): string {
+      return `Bro, work for ${workingHour} hours`;
     }
   }
 
-  const catP = new AnimalP("Muyejja", "female", "Billu", 1);
-  console.log("🚀 ~ catP:", catP);
-  console.log("🚀 ~ catP id:", catP.getId());
-  console.log("🚀 ~ catP nickname:", catP.getNickname());
-  console.log("🚀 ~ catP.name:", catP.name); // Default name
+  //   Inheriting from Human
+  class Female extends Human {
+    constructor(leg: number, hand: number, public isCute: boolean) {
+      super(leg, hand);
+    }
 
-  catP.name = "Muyezza";
-  console.log("🚀 ~ catP.name:", catP.name); // After updating name
+    controlAndGrowFamily(): string {
+      return "Love, make the whole family to reach to Jannah💝";
+    }
+  }
 
-  console.log("🚀 ~ catP:", catP.gender); // Gender is readonly, so can't be updated.
-  console.log("🚀 ~ catP:", catP.id); // Id is protected and accessible to the class itself and it's children classes (subclasses).
-  console.log("🚀 ~ catP:", catP.nickname); // Nickname is private and only accessible to the call itself.
+  const me = new Male(2, 2, false, true);
+  console.log("🚀 ~ me:", me);
+  console.log(me.doJob(12));
+
+  const ahliya = new Female(2, 2, true);
+  console.log("🚀 ~ ahliya:", ahliya);
+  console.log(ahliya.controlAndGrowFamily());
 }
