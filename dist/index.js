@@ -1,16 +1,15 @@
 "use strict";
-// keyof operator
-function getProperty(obj, key) {
-    return obj[key];
+// Task 1:
+function greet() {
+    console.log('Hello World, I will complete this course successfully and become a Next level Web Developer!');
 }
-const x = {
-    a: 1,
-    b: 2,
-    c: 3,
-    d: 4,
-};
-console.log('🚀 ~ x:', x);
-console.log('🚀 ~ getProperty(x, "a"):', getProperty(x, 'a'));
-console.log('🚀 ~ getProperty(x, "b"):', getProperty(x, 'b'));
-console.log('🚀 ~ getProperty(x, "c"):', getProperty(x, 'c'));
-console.log('🚀 ~ getProperty(x, "d"):', getProperty(x, 'd'));
+greet();
+function createUser(name, age, role) {
+    const user = {
+        name,
+    };
+    if (role) {
+        user.role = role;
+    }
+    return user;
+}
