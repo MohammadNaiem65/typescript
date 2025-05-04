@@ -1,9 +1,10 @@
 "use strict";
-const stringList = ['a', 'b', 'c', 'd'];
-const numberList = [1, 2, 3, 4];
-const objectList = [
-    { id: 1, name: 'jhon' },
-];
-console.log('🚀 ~ objectList:', objectList);
-const rifat = ['rifat', 'male', true];
-console.log('🚀 ~ rifat:', rifat);
+// ! Conditional types
+// conditional types are used to create a new type based on the type of another type conditionally.
+function createLabel(params) {
+    return ;
+}
+const nameLabel = createLabel('Rifat');
+console.log('🚀 ~ nameLabel:', nameLabel);
+const idLabel = createLabel(1);
+console.log('🚀 ~ idLabel:', idLabel);

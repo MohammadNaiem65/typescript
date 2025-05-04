@@ -1,17 +1,56 @@
-// ! Generic types with type aliases
-// Generic type is a generalized type (or same quality) of different types which shared by all.
+{
+  // Normal  Class
+  class AnimalN {
+    name: string;
+    species: string;
+    sound: string;
 
-type Lists<T> = Array<T>; // A Generic Array
+    constructor(name: string, species: string, sound: string) {
+      this.name = name;
+      this.species = species;
+      this.sound = sound;
+    }
 
-const stringList: Lists<string> = ['a', 'b', 'c', 'd'];
-const numberList: Lists<number> = [1, 2, 3, 4];
-const objectList: Lists<{ readonly id: number; name: string }> = [
-    { id: 1, name: 'jhon' },
-];
+    makeSound() {
+      console.log(`${this.name} is saying ${this.sound}`);
+    }
+  }
 
-console.log('🚀 ~ objectList:', objectList);
+  const catN = new AnimalN("Billu", "cat", "meew");
+  //   console.log("🚀 ~ cat:", catN);
 
-type GenericTuple<X, Y, Z> = [X, Y, Z]; // A Generic Tuple
+  //   Class using Parameter Properties
+  class AnimalP {
+    constructor(
+      public name: string,
+      readonly gender: "male" | "female",
+      private nickname: string,
+      protected id: number
+    ) {
+      // no need to initialize the properties
+    }
 
-const rifat: GenericTuple<string, string, boolean> = ['rifat', 'male', true];
-console.log('🚀 ~ rifat:', rifat);
+    getId(): number {
+      console.log(`${this.name} has id: ${this.id}`);
+      return this.id;
+    }
+
+    getNickname(): string {
+      console.log(`${this.name}'s nickname is: ${this.nickname}`);
+      return this.nickname;
+    }
+  }
+
+  const catP = new AnimalP("Muyejja", "female", "Billu", 1);
+  console.log("🚀 ~ catP:", catP);
+  console.log("🚀 ~ catP id:", catP.getId());
+  console.log("🚀 ~ catP nickname:", catP.getNickname());
+  console.log("🚀 ~ catP.name:", catP.name); // Default name
+
+  catP.name = "Muyezza";
+  console.log("🚀 ~ catP.name:", catP.name); // After updating name
+
+  console.log("🚀 ~ catP:", catP.gender); // Gender is readonly, so can't be updated.
+  console.log("🚀 ~ catP:", catP.id); // Id is protected and accessible to the class itself and it's children classes (subclasses).
+  console.log("🚀 ~ catP:", catP.nickname); // Nickname is private and only accessible to the call itself.
+}
