@@ -1,88 +1,33 @@
-// @ Class member visibility (public, protected, private), statics and getter, setter accessors
+// @ Encapsulation - Encapsulation is putting data and the functions into a single package (place) that use that data
+class Player {
+  constructor(
+    public name: string,
+    protected salary: number,
+    public skill: string
+  ) {}
 
-// Family class
-class Family {
-  static wealth: number = 10000;
-
-  static getWealth() {
-    return Family.wealth;
-  }
-
-  static inheritWealth(amount: number): string | number {
-    if (amount > Family.wealth) {
-      return "You can't get more than we have";
-    }
-
-    return (Family.wealth -= amount);
-  }
-
-  static growWealth(amount: number) {
-    return (Family.wealth += amount);
+  // @ This is Abstraction - (Abstracting is removing complex theories and codings under the hood and offering simple methods to do the same)
+  getSalary(): number {
+    return this.salary * 12;
   }
 }
 
-// Family member class
-class FamilyMember extends Family {
-  private _budget: number = 0;
-  private _inherited: number = 0;
-
-  constructor(public name: string) {
-    super();
+// @ Inheritance - Taking the properties and methods from the parent class
+// * In this example FootballPlayer inherits the name, salary and skill properties
+class FootballPlayer extends Player {
+  constructor(name: string, salary: number, skill: string) {
+    super(name, salary, skill);
   }
 
-  // Getter for budget (read-only)
-  get budget(): number {
-    return this._budget;
-  }
-
-  // Getter for inherited (read-only)
-  get inherited(): number {
-    return this._inherited;
-  }
-
-  spend(amount: number): number | string {
-    if (amount <= this._budget) {
-      return (this._budget -= amount);
-    } else {
-      return "You can't spend more than you have";
-    }
-  }
-
-  inheritWealth(amount: number): number | string {
-    const remainedWealth = Family.getWealth();
-
-    if (amount <= remainedWealth) {
-      Family.inheritWealth(amount);
-
-      this._budget += amount;
-      this._inherited += amount;
-
-      return this._budget;
-    } else {
-      return "You can't get more than we have";
-    }
-  }
-
-  // If you need to initialize budget for testing
-  initializeBudget(amount: number) {
-    this._budget = amount;
+  // @ This is Polymorphism - A concept that allows to use the same variable or function to use in different forms
+  // * In this case, we are creating a method with the same name of the parent class but serves a different purpose
+  getSalary() {
+    return this.salary * 6;
   }
 }
 
-const tusher = new FamilyMember("tusher");
+const tanjimSakib = new Player("Tanjim Sakib", 50000, "all-rounder");
+const musfik = new Player("Musfik Ur Rahim", 70000, "bowler-keeper");
 
-// Initialize budget using a method instead of direct assignment
-tusher.initializeBudget(1000);
-
-console.log(tusher.budget); // This works (reading is allowed)
-
-// The following would cause a TypeScript error (writing not allowed):
-// tusher.budget = 2000;  // Error: Cannot assign to 'budget' because it is a read-only property
-
-// Must use methods to modify properties
-tusher.spend(300);
-console.log(tusher.budget); // Should show 700
-
-tusher.inheritWealth(500);
-console.log(tusher.budget); // Should show 1200
-console.log(tusher.inherited); // Should show 500
+console.log(tanjimSakib.getSalary());
+console.log(musfik.getSalary());

@@ -1,15 +1,16 @@
 "use strict";
-// Task 1:
-function greet() {
-    console.log('Hello World, I will complete this course successfully and become a Next level Web Developer!');
-}
-greet();
-function createUser(name, age, role) {
-    const user = {
-        name,
-    };
-    if (role) {
-        user.role = role;
+// @ Encapsulation - Encapsulation is putting data and the functions into a single package (place) that use that data
+class Player {
+    constructor(name, salary, skill) {
+        this.name = name;
+        this.salary = salary;
+        this.skill = skill;
     }
-    return user;
+    getYearlySalary() {
+        return this.salary * 12;
+    }
 }
+const tanjimSakib = new Player("Tanjim Sakib", 50000, "all-rounder");
+const musfik = new Player("Musfik Ur Rahim", 70000, "bowler-keeper");
+console.log(tanjimSakib.getYearlySalary());
+console.log(musfik.getYearlySalary());
