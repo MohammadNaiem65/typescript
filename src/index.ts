@@ -1,88 +1,88 @@
-// Task 1: Write a TypeScript program that outputs a welcome message.
-{
-  function greet() {
-    console.log(
-      "Hello World, I will complete this course successfully and become a Next level Web Developer!"
-    );
+// @ Class member visibility (public, protected, private), statics and getter, setter accessors
+
+// Family class
+class Family {
+  static wealth: number = 10000;
+
+  static getWealth() {
+    return Family.wealth;
   }
 
-  // greet();
-}
-
-// Task 2: Create a function with parameters and an optional literal type.
-// 1. Define a function that takes:
-// - name (string)
-// - age (number)
-// - role (optional, with type 'admin' | 'user' | 'guest')
-// 2. The function should log these values or perform a basic action.
-{
-  type Roles = "admin" | "user" | "guest";
-
-  type User = {
-    name: string;
-    age: number;
-    role?: Roles;
-  };
-
-  function createUser(name: string, age: number, role?: Roles): User {
-    const user: User = {
-      name,
-      age,
-    };
-
-    if (role) {
-      user.role = role;
+  static inheritWealth(amount: number): string | number {
+    if (amount > Family.wealth) {
+      return "You can't get more than we have";
     }
 
-    return user;
+    return (Family.wealth -= amount);
   }
 
-  const user = createUser("John", 21, "admin");
-  // console.log("🚀 ~ user:", user);
+  static growWealth(amount: number) {
+    return (Family.wealth += amount);
+  }
 }
 
-// Task 3: Define a structured Person object using Type Aliases.
-// Instructions:
-// Define a Person type alias with properties for Name, Address, Hair and Eye Color, Income and Expense, Hobbies, Family Members, Job, Skills, Marital Status, and Friends.
-{
-  type Person = {
-    name: string;
-    address: string;
-    hairColor: "black" | "brown";
-    eyeColor: "black" | "brown";
-    income?: number;
-    expense: number;
-    hobbies: string[];
-    familyMembers?: Person[];
-    job?: string;
-    skills?: string[];
-    maritalStatus: boolean;
-    friends?: Person[];
-  };
+// Family member class
+class FamilyMember extends Family {
+  private _budget: number = 0;
+  private _inherited: number = 0;
 
-  const person1: Person = {
-    name: "naiem",
-    address: "dhk",
-    hairColor: "black",
-    eyeColor: "brown",
-    income: 10000,
-    expense: 22000,
-    hobbies: ["gardening", "coding"],
-    job: "frontend dev",
-    maritalStatus: true,
-  };
-  // console.log("🚀 ~ person1:", person1);
+  constructor(public name: string) {
+    super();
+  }
 
-  const person2: Person = {
-    name: "fardin",
-    address: "dhk",
-    hairColor: "black",
-    eyeColor: "black",
-    income: 0,
-    expense: 5000,
-    hobbies: ["sleeping"],
-    maritalStatus: false,
-    familyMembers: [person1],
-  };
-  // console.log("🚀 ~ person2:", person2);
+  // Getter for budget (read-only)
+  get budget(): number {
+    return this._budget;
+  }
+
+  // Getter for inherited (read-only)
+  get inherited(): number {
+    return this._inherited;
+  }
+
+  spend(amount: number): number | string {
+    if (amount <= this._budget) {
+      return (this._budget -= amount);
+    } else {
+      return "You can't spend more than you have";
+    }
+  }
+
+  inheritWealth(amount: number): number | string {
+    const remainedWealth = Family.getWealth();
+
+    if (amount <= remainedWealth) {
+      Family.inheritWealth(amount);
+
+      this._budget += amount;
+      this._inherited += amount;
+
+      return this._budget;
+    } else {
+      return "You can't get more than we have";
+    }
+  }
+
+  // If you need to initialize budget for testing
+  initializeBudget(amount: number) {
+    this._budget = amount;
+  }
 }
+
+const tusher = new FamilyMember("tusher");
+
+// Initialize budget using a method instead of direct assignment
+tusher.initializeBudget(1000);
+
+console.log(tusher.budget); // This works (reading is allowed)
+
+// The following would cause a TypeScript error (writing not allowed):
+// tusher.budget = 2000;  // Error: Cannot assign to 'budget' because it is a read-only property
+
+// Must use methods to modify properties
+tusher.spend(300);
+console.log(tusher.budget); // Should show 700
+
+tusher.inheritWealth(500);
+console.log(tusher.budget); // Should show 1200
+console.log(tusher.inherited); // Should show 500
